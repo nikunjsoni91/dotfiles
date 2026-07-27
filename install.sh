@@ -1,23 +1,23 @@
-hu#!/bin/bash
+#!/bin/bash
 
 # 1. Setup paths for custom Zsh plugins
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 # 2. Install Oh My Zsh silently if missing
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://githubusercontent.com)" "" --unattended
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 # 3. Clone the Auto-Suggestions Plugin securely
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-  git clone https://github.com \
-    "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+  git clone https://github.com/zsh-users/zsh-autosuggestions \
+"$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
 # 4. Clone the Syntax Highlighting Plugin securely
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
-  git clone https://github.com \
-    "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting \
+"$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
 # 5. Enable the plugins and theme inside the Zsh configuration file (~/.zshrc)
@@ -34,9 +34,9 @@ fi
 
 cp .zshrc ~/.zshrc
 
-cp aliases.zsh ~/aliases.zsh
+echo ""
+echo "✅ Installation complete."
+echo "Run:"
+echo "exec zsh"
 
-cp exports.zsh ~/exports.zsh
-
-source ~/.zshrc
 
