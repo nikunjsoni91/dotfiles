@@ -1,4 +1,4 @@
-#!/bin/bash
+hu#!/bin/bash
 
 # 1. Setup paths for custom Zsh plugins
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
@@ -31,4 +31,12 @@ sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' ~/.zshrc
 if ! grep -q "LS_COLORS" ~/.zshrc; then
   echo 'export LS_COLORS="$LS_COLORS:ow=01;34:tw=01;34:"' >> ~/.zshrc
 fi
+
+cp .zshrc ~/.zshrc
+
+cp aliases.zsh ~/aliases.zsh
+
+cp exports.zsh ~/exports.zsh
+
+source ~/.zshrc
 
