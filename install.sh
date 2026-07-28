@@ -25,7 +25,7 @@ fi
 sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
 
 # 6. Set the default theme to a highly readable layout
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' ~/.zshrc
+sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k"/' ~/.zshrc
 
 # 7. Apply the neon green background color fix globally to the Zsh profile
 if ! grep -q "LS_COLORS" ~/.zshrc; then
