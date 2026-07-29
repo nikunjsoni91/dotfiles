@@ -8,6 +8,12 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
+# Install Powerlevel10k theme if missing
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+        "$ZSH_CUSTOM/themes/powerlevel10k"
+fi
+
 # 3. Clone the Auto-Suggestions Plugin securely
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions \
@@ -24,10 +30,8 @@ fi
 # This replaces the default plugin line with git, autosuggestions, and highlighting
 sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
 
-# 6. Set the default theme to a highly readable layout
-sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k"/' ~/.zshrc
 
-# 7. Apply the neon green background color fix globally to the Zsh profile
+# 6. Apply the neon green background color fix globally to the Zsh profile
 if ! grep -q "LS_COLORS" ~/.zshrc; then
   echo 'export LS_COLORS="$LS_COLORS:ow=01;34:tw=01;34:"' >> ~/.zshrc
 fi
