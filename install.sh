@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# ==========================================================
+# Dotfiles Installer
+# ==========================================================
+
+DOTFILES_VERSION="1.0.0"
+
+echo
+echo "========================================="
+echo "🚀 Installing Dotfiles v${DOTFILES_VERSION}"
+echo "========================================="
+echo
+
 set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -34,6 +46,9 @@ fi
 # Copy configuration
 cp "$DOTFILES_DIR/.p10k.zsh" ~/.p10k.zsh
 
+# Save installed version
+echo "$DOTFILES_VERSION" > "$HOME/.dotfiles-version"
+
 
 # ==========================================================
 # Configure ~/.zshrc (only once)
@@ -62,7 +77,13 @@ EOF
 
 fi
 
-echo ""
-echo "✅ Installation complete."
-echo "Run:"
-echo "exec zsh"
+echo
+echo "========================================="
+echo "✅ Dotfiles v${DOTFILES_VERSION} installed successfully!"
+echo
+echo "Restart your shell:"
+echo "    exec zsh"
+echo
+echo "Installed version:"
+cat "$HOME/.dotfiles-version"
+echo "========================================="
