@@ -32,8 +32,35 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
 fi
 
 # Copy configuration
-cp "$DOTFILES_DIR/.zshrc" ~/.zshrc
 cp "$DOTFILES_DIR/.p10k.zsh" ~/.p10k.zsh
+
+
+# ==========================================================
+# Configure ~/.zshrc (only once)
+# ==========================================================
+
+if ! grep -q ">>> DOTFILES START >>>" "$HOME/.zshrc"; then
+
+cat <<'EOF' >> "$HOME/.zshrc"
+
+# >>> DOTFILES START >>>
+
+if [[ -f "$HOME/dotfiles/aliases.zsh" ]]; then
+    DOTFILES="$HOME/dotfiles"
+elif [[ -f "/workspaces/dotfiles/aliases.zsh" ]]; then
+    DOTFILES="/workspaces/dotfiles"
+fi
+
+[[ -f "$DOTFILES/aliases.zsh" ]] && source "$DOTFILES/aliases.zsh"
+[[ -f "$DOTFILES/exports.zsh" ]] && source "$DOTFILES/exports.zsh"
+[[ -f "$DOTFILES/functions.zsh" ]] && source "$DOTFILES/functions.zsh"
+[[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
+
+# <<< DOTFILES END >>>
+
+EOF
+
+fi
 
 echo ""
 echo "✅ Installation complete."
