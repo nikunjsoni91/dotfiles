@@ -1,46 +1,41 @@
 #!/bin/bash
 
-# 1. Setup paths for custom Zsh plugins
-ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+set -e
 
-# 2. Install Oh My Zsh silently if missing
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+
+echo "Installing dotfiles..."
+
+# Install Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# Install Powerlevel10k theme if missing
+# Install Powerlevel10k
 if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-        "$ZSH_CUSTOM/themes/powerlevel10k"
+    git clone --depth=1 \
+      https://github.com/romkatv/powerlevel10k.git \
+      "$ZSH_CUSTOM/themes/powerlevel10k"
 fi
 
-# 3. Clone the Auto-Suggestions Plugin securely
+# Install Autosuggestions
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions \
-"$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+      "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
-# 4. Clone the Syntax Highlighting Plugin securely
+# Install Syntax Highlighting
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting \
-"$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting \
+      "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
-# 5. Enable the plugins and theme inside the Zsh configuration file (~/.zshrc)
-# This replaces the default plugin line with git, autosuggestions, and highlighting
-sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
-
-
-# 6. Apply the neon green background color fix globally to the Zsh profile
-if ! grep -q "LS_COLORS" ~/.zshrc; then
-  echo 'export LS_COLORS="$LS_COLORS:ow=01;34:tw=01;34:"' >> ~/.zshrc
-fi
-
-cp .zshrc ~/.zshrc
+# Copy configuration
+cp "$DOTFILES_DIR/.zshrc" ~/.zshrc
+cp "$DOTFILES_DIR/.p10k.zsh" ~/.p10k.zsh
 
 echo ""
 echo "✅ Installation complete."
 echo "Run:"
 echo "exec zsh"
-
-
