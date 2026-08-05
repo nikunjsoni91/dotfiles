@@ -82,6 +82,20 @@ plugins=(\
 fi
 
 # ==========================================================
+# GitHub CLI Authentication
+# ==========================================================
+
+echo "▶ Configuring GitHub CLI..."
+
+# Remove Codespaces injected token so gh auth can be used
+if command -v gh >/dev/null 2>&1; then
+unset GITHUB_TOKEN
+
+# Configure GitHub CLI as Git credential helper
+gh auth setup-git >/dev/null 2>&1 || true
+fi
+
+# ==========================================================
 # Append managed block only once
 # ==========================================================
 
